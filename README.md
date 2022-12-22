@@ -19,7 +19,7 @@
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=tokyonight)
 
 ### 😂 Random Dev Meme
-<img src="https://random-memer.herokuapp.com/" width="512px"/>
+<img src="https://cdn.ebaumsworld.com/mediaFiles/picture/2502212/86669465.jpg/" width="512px"/>
 
 ---
 [![](https://visitcount.itsvg.in/api?id=ItsZcx&icon=7&color=0)](https://visitcount.itsvg.in)
