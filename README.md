@@ -1,5 +1,5 @@
 # 💫 About Me:
-- 👋 Hi, I’m @ItsZcx, currently TEK1 student from Epitech BCN with a passion on decovering new fields<br>
+- 👋 Hi, I’m Pau, currently a TEK1 student from Epitech BCN with a passion on decovering new fields<br>
 
 
 ## 🌐 Socials:
