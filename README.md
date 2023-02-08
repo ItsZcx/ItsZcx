@@ -23,3 +23,27 @@
 <div align="center"><img src="https://github-readme-stats.vercel.app/api?username=ItsZcx&show_icons=true&count_private=true&hide_border=true" align="center" /></div>
 
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+<h1 align="center">Hi 👋, I'm Pau</h1>
+<h3 align="center">Currently a TEK1 student from Epitech BCN with a passion on decovering new fields</h3>
+
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=itszcx&label=Profile%20views&color=3098d9&style=flat" alt="itszcx" /> </p>
+
+<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=itszcx" alt="itszcx" /></a> </p>
+
+- 🌱 I’m currently learning **C and a bit of Python and TypeScript!**
+
+- 📫 How to reach me **joanpaumeridaruiz@gmail.com**
+
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://linkedin.com/in/https://www.linkedin.com/in/joan-pau-merida/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/joan-pau-merida/" height="30" width="40" /></a>
+</p>
+
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
+
+<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=itszcx&show_icons=true&theme=dark&locale=en&layout=compact" alt="itszcx" /></p>
+
+<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=itszcx&show_icons=true&theme=dark&locale=en" alt="itszcx" /></p>
+
+<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=itszcx&theme=dark" alt="itszcx" /></p>
