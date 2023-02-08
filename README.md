@@ -20,5 +20,6 @@
 
 ---
 [![](https://visitcount.itsvg.in/api?id=ItsZcx&icon=7&color=0)](https://visitcount.itsvg.in)
+<div align="center"><img src="https://github-readme-stats.vercel.app/api?username=ItsZcx&show_icons=true&count_private=true&hide_border=true" align="center" /></div>
 
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
