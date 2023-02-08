@@ -12,9 +12,6 @@
 <p align="left"> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
 
 # 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false)<br/>
-![](https://github-readme-streak-stats.herokuapp.com/?user=ItsZcx&theme=dark&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false"/>
 </p>
