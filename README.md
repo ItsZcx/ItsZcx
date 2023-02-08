@@ -22,11 +22,9 @@
 [![](https://visitcount.itsvg.in/api?id=ItsZcx&icon=7&color=0)](https://visitcount.itsvg.in)
 <div align="center"><img src="https://github-readme-stats.vercel.app/api?username=ItsZcx&show_icons=true&count_private=true&hide_border=true" align="center" /></div>
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->/////////////////////////////////////
 <h1 align="center">Hi 👋, I'm Pau</h1>
 <h3 align="center">Currently a TEK1 student from Epitech BCN with a passion on decovering new fields</h3>
-
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=itszcx&label=Profile%20views&color=3098d9&style=flat" alt="itszcx" /> </p>
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=itszcx" alt="itszcx" /></a> </p>
 
@@ -42,8 +40,16 @@
 <h3 align="left">Languages and Tools:</h3>
 <p align="left"> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
 
+***
+# 📊 GitHub Stats:
+![](https://github-readme-stats.vercel.app/api?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false)<br/>
+![](https://github-readme-streak-stats.herokuapp.com/?user=ItsZcx&theme=dark&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
+***
+
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=itszcx&show_icons=true&theme=dark&locale=en&layout=compact" alt="itszcx" /></p>
 
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=itszcx&show_icons=true&theme=dark&locale=en" alt="itszcx" /></p>
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=itszcx&theme=dark" alt="itszcx" /></p>
+<p align="center"> <img src="https://komarev.com/ghpvc/?username=itszcx&label=Profile%20views&color=3098d9&style=flat" alt="itszcx" /> </p>
