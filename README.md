@@ -16,12 +16,14 @@
 ![](https://github-readme-streak-stats.herokuapp.com/?user=ItsZcx&theme=dark&hide_border=false)<br/>
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
 <p align="center">
-  ![](https://github-readme-stats.vercel.app/api?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false)<br/></p>
+  <img src="https://github-readme-stats.vercel.app/api?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false"/>
+</p>
 <p align="center">
-  ![](https://github-readme-streak-stats.herokuapp.com/?user=ItsZcx&theme=dark&hide_border=false)<br/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=ItsZcx&theme=dark&hide_border=false"/>
 </p>
-<p align="center">!
-  [](https://github-readme-stats.vercel.app/api/top-langs/?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ItsZcx&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact"/>
 </p>
+
 
 <p align="center"> <img src="https://komarev.com/ghpvc/?username=itszcx&label=Profile%20views&color=3098d9&style=flat" alt="itszcx" /> </p>
