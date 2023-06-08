@@ -1,5 +1,5 @@
 <h1 align="center">👋 Hi, I'm Pau</h1>
-<h3 align="center">Currently a TEK2 student from Epitech BCN with a passion on decovering new fields</h3>
+<h3 align="center">Currently a TEK2 student from Epitech BCN looking for an Internship 👀</h3>
 
 - 🌱 I'm currently learning **Typescript**, **Angular** and **Python**!
 
