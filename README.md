@@ -1,8 +1,6 @@
 <h1 align="center">👋 Hi, I'm Pau</h1>
 <h3 align="center">Currently a TEK3 student from Epitech BCN</h3>
 
-- 🌱 I'm currently learning **FastAPI**!
-
 - 📫 You can contact me at **joanpaumeridaruiz@gmail.com** or via [**LinkedIn**](https://www.linkedin.com/in/joan-pau-merida/)!
 
 <br>
