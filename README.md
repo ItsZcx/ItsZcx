@@ -3,8 +3,8 @@
 
 
 ## 👨‍💻 About Me  
-- 🎓 **Master's student at Epitech** (soon an exchange student in Melbourne, Australia 🇦🇺).  
-- 💻 **1.5+ years of experience** as a software engineer.  
+- 🎓 **Master's student at Epitech**.  
+- 💻 **3+ years of experience** as a software engineer.  
 - 📚 Always eager to **learn new technologies** and work on **innovative projects**.  
 
 ## ⚙️ Tech Stack
