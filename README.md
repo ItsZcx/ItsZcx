@@ -1,5 +1,4 @@
 <h1 align="center">👋 Hi, I'm Pau</h1>
-<h3 align="center">Software Engineer | Epitech Master's Student</h3>
 
 
 ## 👨‍💻 About Me  
