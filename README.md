@@ -3,7 +3,7 @@
 
 
 ## 👨‍💻 About Me  
-- 🎓 **Master's student at Epitech**.  
+- 🎓 **Master's student at Epitech and Monash University**.  
 - 💻 **3+ years of experience** as a software engineer.  
 - 📚 Always eager to **learn new technologies** and work on **innovative projects**.  
 
