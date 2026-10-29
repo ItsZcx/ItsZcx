@@ -7,6 +7,9 @@ are the source of truth. The numbers come from stats.py and land at the
     python3 today.py              # fetch stats, rewrite README.md
     python3 today.py --dry-run    # fetch stats, print them, touch nothing
     python3 today.py --demo       # sample numbers, no network
+    python3 today.py --quiet      # no progress output (used by the workflow)
+    python3 today.py --names      # include repository names in the progress
+                                  # lines - local debugging only, never in CI
 
 Layout rules worth knowing:
   * GitHub's profile column is 846px wide and monospace advances 8.19px/char,

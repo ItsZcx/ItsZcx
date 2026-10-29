@@ -40,7 +40,9 @@ jobs:
           GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
           GOATCOUNTER_SITE: ${{ vars.GOATCOUNTER_SITE || 'https://zcx.goatcounter.com' }}
         # schedule/push leave inputs empty, so this is a plain run for them
-        run: python3 today.py ${{ inputs.dry_run == true && '--dry-run' || '' }}
+        # --quiet: Action logs on a public repo are public, so no progress
+        # output at all, and repository names are never printed
+        run: python3 today.py --quiet ${{ inputs.dry_run == true && '--dry-run' || '' }}
 
       - name: Commit if changed
         run: |

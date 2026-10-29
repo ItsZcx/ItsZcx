@@ -55,6 +55,23 @@ GOATCOUNTER_SITE = GOATCOUNTER_SITE.rstrip("/")
 
 REQUESTS = 0
 
+# Action logs on a public repository are public. Repository names are
+# therefore never printed unless explicitly requested, and `quiet` silences
+# progress entirely - the workflow runs with --quiet.
+QUIET = False
+SHOW_NAMES = False
+
+
+def set_output(quiet=False, names=False):
+    """Configure what this module is allowed to print."""
+    global QUIET, SHOW_NAMES
+    QUIET, SHOW_NAMES = quiet, names
+
+
+def _repo(full_name):
+    """A repository name, or a placeholder when names are not allowed."""
+    return full_name if SHOW_NAMES else "a repository"
+
 
 # ---------------------------------------------------------------- transport
 
@@ -127,7 +144,10 @@ def _request(url, data=None, token=None, allow=()):
             hint = body[:200] + ("..." if len(body) > 200 else "")
             if body.lstrip().startswith("<"):
                 hint = "(HTML error page, not JSON)"
-            raise SystemExit(f"HTTP {error.code} {url}\n{hint}")
+            shown = url
+            if not SHOW_NAMES:
+                shown = re.sub(r"/repos/[^/\s]+/[^/\s]+", "/repos/<redacted>", url)
+            raise SystemExit(f"HTTP {error.code} {shown}\n{hint}")
 
     raise SystemExit(f"gave up on {url}")
 
@@ -312,9 +332,10 @@ def scan_repo(full_name):
 
         history = ref["target"]["history"]
         pages += 1
-        if pages == 1 and history.get("totalCount", 0) > 50000:
+        if pages == 1 and history.get("totalCount", 0) > 50000 and not QUIET:
             print(
-                f"    {full_name}: {history['totalCount']:,} commits, this will take a while",
+                f"    {_repo(full_name)}: {history['totalCount']:,} commits, "
+                f"this will take a while",
                 file=sys.stderr,
             )
 
@@ -395,15 +416,17 @@ def fetch(verbose=True):
     cache = load_cache()
     scanned = checked = skipped = 0
 
-    for full_name in sorted(visible):
+    total = len(visible)
+    for index, full_name in enumerate(sorted(visible), 1):
         meta = visible[full_name]
         entry = cache.get(full_name)
 
         if entry and entry.get("pushedAt") == meta["pushedAt"]:
             skipped += 1
         else:
-            if verbose:
-                print(f"  checking {full_name}", file=sys.stderr)
+            if verbose and not QUIET:
+                where = f" {full_name}" if SHOW_NAMES else ""
+                print(f"  checking {index}/{total}{where}", file=sys.stderr)
             mine = my_commit_count(full_name)
             checked += 1
             time.sleep(0.1)  # stay clear of burst limits
@@ -411,20 +434,20 @@ def fetch(verbose=True):
             if mine == 0:
                 entry = {"commits": 0, "added": 0, "deleted": 0}
             else:
-                if verbose:
-                    print(
-                        f"    scanning {full_name} ({mine} of yours)", file=sys.stderr
-                    )
+                if verbose and not QUIET:
+                    where = f" {full_name}" if SHOW_NAMES else ""
+                    print(f"    scanning ({mine} of yours){where}", file=sys.stderr)
                 entry = scan_repo(full_name)
                 scanned += 1
                 if entry["commits"] == 0:
                     # REST found your commits by email but GraphQL could not
                     # match them to an account; trust the count, lose the diff
-                    print(
-                        f"    {full_name}: {mine} commits found, no diff stats "
-                        f"(unlinked author?)",
-                        file=sys.stderr,
-                    )
+                    if not QUIET:
+                        print(
+                            f"    {_repo(full_name)}: {mine} commits found, no diff "
+                            f"stats (unlinked author?)",
+                            file=sys.stderr,
+                        )
                     entry["commits"] = mine
 
             entry["pushedAt"] = meta["pushedAt"]
