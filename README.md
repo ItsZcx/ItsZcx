@@ -3,8 +3,60 @@
 <!-- neofetch:start -->
 <table>
 <tr>
-<td valign="top"><pre></pre></td>
-<td valign="top"><pre></pre></td>
+<td valign="top"><pre>                  :-=:   .....
+        ..:+***+%*++**#@%#*#+#=+:
+      :=+*=+*+-=====-=*::..:-++:+#@*-=
+    :*-++=---..:---.==-=-.=:..*=-*===*%+
+  :*=::-=:.  :::::..:.:=.:--:. .-:=-:=###-
+ :.: :=... .::.     .:--::--   ::--++-+*#+.
+ %:::           ..:::.-  .-=-:+.  ..--+#=#+@+
+ *: .    .-  .:.:-**==:-:::.:..:-: .::-:#+=+.
+ --.-. :=++#*+*****::==--+=::.-   .-:+- =#%=
+  +--:#+++===+*+-  :..-+=**-+++#**---==-=%=
+  -++-: .-=-***+--.   ..#@@@@**:::+==*--=-
+ -:.+*  .=**+.#*---  .::+-++++-.:  -.%+%#
+ -=-- . .:-=*#-**-.. .:--==#=*-=.. .:. -=:
+ :-=*.     ... .  . . ...-:.: ..    -%-:+:
+  -.=:    .. ..... ..:.....    .    +::-:
+ .++%# . . ... -**-::#=:.:...  ..  :=.*-.
+  =-@+ .. :--=:.-::-:.:...........#@@*:
+     .=:...::=+-+*=+-**##+=.  . .*:*%..
+       -:.... ..--::.. .....   .%@#@+
+         .... ....:. ..  .......--=
+         ..+**=#=**+======:.....
+         =. =+-*%#***#%+=-.   ..#+
+         :. .. ::::::...      ..*-*%+:.-.
+         ..  ..  .  .         -+.....=**=*+=++
+  .+-**#+:-                 =-.      .-=---::.
+#+- :=-: := . .          --=
+....-   :%.. ..       =-=</pre></td>
+<td valign="top"><pre>pau@itszcx
+——————————————————————————
+
+. <b>Role</b>: .. Pedagogical Assistant @ Epitech
+. <b>Location</b>: ............... Remote (Spain)
+. <b>Spoken</b>: ...... English, Spanish, Catalan
+. <b>Education</b>: ............. Epitech, Monash
+
+. <b>OS</b>: ....................... Linux, macOS
+. <b>Programming</b>: ............... C++, Python
+. <b>Infra</b>: .... Docker, AWS, RabbitMQ, Minio
+. <b>Databases</b>: ......... PostgreSQL, MongoDB
+. <b>Others</b>: ...... Aeron, FastAPI, vcpkg, UV
+
+. <b>Working on</b>: .................. <a href="https://github.com/ItsZcx/dragonfly">Dragonfly</a>
+. <b>Interests</b>: .. Quant, Homelab, Bouldering
+
+— Contact —————————————————————
+. <b>Portfolio</b>: ..................... <a href="https://zcx.dev">zcx.dev</a>
+. <b>GitHub</b>: ......................... <a href="https://github.com/ItsZcx">ItsZcx</a>
+. <b>LinkedIn</b>: .......................... <a href="https://www.linkedin.com/in/joan-pau-merida-ruiz/">Pau</a>
+. <b>Email</b>: ..... joanpaumeridaruiz@gmail.com
+
+— GitHub Stats ————————————————
+   Profile Views 2,813    7 stars
+   2,536 commits          26 repos {136}
+   675k LOC               (++986k --311k)</pre></td>
 </tr>
 </table>
 <!-- neofetch:end -->
