@@ -1,0 +1,55 @@
+name: README build
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 4 * * *"
+  # adds the "Run workflow" button on the Actions tab, once this file is on main
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Fetch and print the stats, do not commit"
+        type: boolean
+        default: false
+
+concurrency:
+  group: readme-build
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh stats
+        env:
+          # STATS_TOKEN must be a PAT - the built-in GITHUB_TOKEN cannot see
+          # private repositories or other organisations. Classic PAT with
+          # `repo` scope, or fine-grained with Contents: Read on every repo
+          # (each org has to approve it).
+          STATS_TOKEN: ${{ secrets.STATS_TOKEN }}
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          GOATCOUNTER_SITE: ${{ vars.GOATCOUNTER_SITE || 'https://zcx.goatcounter.com' }}
+        # schedule/push leave inputs empty, so this is a plain run for them
+        run: python3 today.py ${{ inputs.dry_run == true && '--dry-run' || '' }}
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "nothing changed"
+            exit 0
+          fi
+          git commit -m "chore: refresh GitHub stats"
+          git push
