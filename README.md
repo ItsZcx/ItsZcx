@@ -25,9 +25,9 @@
          =. =+-*%#***#%+=-.   ..#+               . <b>Email</b>: .......................... joanpaumeridaruiz@gmail.com
          :. .. ::::::...      ..*-*%+:.-.
          ..  ..  .  .         -+.....=**=*+=++   — GitHub Stats ————————————————————————————————————————————————
-  .+-**#+:-                 =-.      .-=---::.   . <b>Views</b>: ...................... 2,813  . <b>Stars</b>: ............. 7
-#+- :=-: := . .          --=                     . <b>Repos</b>: ...... 26 {Contributed: 136}  . <b>Commits</b>: ....... 2,541
-....-   :%.. ..       =-=                        . <b>Lines of Code</b>: ......................... 675k (++986k --311k)</pre>
+  .+-**#+:-                 =-.      .-=---::.   . <b>Views</b>: ....................... 2,821  . <b>Stars</b>: ............ 7
+#+- :=-: := . .          --=                     . <b>Repos</b>: ........ 26 {Contributed: 28}  . <b>Commits</b>: ........ 735
+....-   :%.. ..       =-=                        . <b>Lines of Code</b>: .......................... 378k (++421k --43k)<img src="https://komarev.com/ghpvc/?username=ItsZcx&style=pixel" width="1" height="1" alt=""></pre>
 <!-- neofetch:end -->
 
 <!-- Profile view counter. The image is what increments it; the Action only
