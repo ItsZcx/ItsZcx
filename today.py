@@ -28,9 +28,9 @@ import stats
 # (46 art + 3 gap + MAX_COLS) chars plus 32px padding:
 #   profile  846px column, 11.9px code (7.165px/char) -> 113 chars fit
 #   repo     838px column, 13.6px code (8.188px/char) ->  98 chars fit
-# 58 puts the card at 107 chars: comfortable on the profile, and the repo page
-# scrolls ~60px. Use 49 for a card that fits both.
-MAX_COLS = 58
+# 63 fills the profile card (46 art + 3 gap + 63 = 112 chars). The repo page
+# renders the same text larger and scrolls. Use 49 to fit both.
+MAX_COLS = 63
 GAP = "   "
 
 DEMO = {
@@ -78,19 +78,19 @@ PANEL = """\
 pau@itszcx
 ——————————————————————————
 
-. <b>Role</b>:...... Pedagogical Assistant @ Epitech
+. <b>Role</b>:...... Pedagogical Assistant @ Epitech Barcelona
 . <b>Location</b>:.. Remote (Spain)
 . <b>Spoken</b>:.... English, Spanish, Catalan
 . <b>Education</b>:. Epitech, Monash
 
 . <b>OS</b>:........ Linux, macOS
 . <b>Programming</b>:. C++, Python
-. <b>Infra</b>: ..... Docker, AWS, RabbitMQ, Minio
+. <b>Frameworks</b>:..... FastAPI (SQAlch, Alembic), NextJS
 . <b>Databases</b>: ..... PostgreSQL, MongoDB
-. <b>Others</b>:..... Aeron, FastAPI, vcpkg, UV
+. <b>Infra</b>: ..... Docker, Aeron, AWS, RabbitMQ, MinIO, vcpkg, UV
 
 . <b>Working on</b>:. <a href="https://github.com/ItsZcx/dragonfly">Dragonfly</a>
-. <b>Interests</b>:. Quant, Homelab, Bouldering
+. <b>Interests</b>:. Quant, Homelab, Bouldering, Traveling
 
 — Contact —————————————————————
 . <b>Portfolio</b>:.... <a href="https://zcx.dev">zcx.dev</a>
@@ -101,7 +101,7 @@ pau@itszcx
 — GitHub Stats ————————————————
 {stats}"""
 
-ART_TOP_PAD = 2        # blank lines above the ASCII, to sit lower in the card
+ART_TOP_PAD = 0        # blank lines above the ASCII, to sit lower in the card
 
 # One <pre> and nothing else. A fenced/HTML block that starts with <pre> runs
 # until </pre>, so blank lines inside are safe - unlike <table>, where a blank
@@ -120,22 +120,50 @@ def human(number):
 
 
 def stats_block(data):
-    """Three rows, two columns, right edge aligned with the dotted rows."""
+    """Six stats in two dotted columns, same idiom as the panel.
+
+    Rows: Views | Stars, Repos | Commits, then one full-width row for the
+    line counts. The two-column rows share a fixed left edge; the last row
+    runs to MAX_COLS.
+    """
     views = f"{data['views']:,}" if data.get("views") is not None else "\u2014"
-    left = [
-        f"Profile Views {views}",
-        f"{data['commits']:,} commits",
-        f"{human(data['loc'])} LOC",
+    rows = [
+        ("Views", views, "Stars", f"{data['stars']:,}"),
+        ("Repos", f"{data['repos']} {{Contributed: {data['contributed']}}}",
+         "Commits", f"{data['commits']:,}"),
+        ("Lines of code on GitHub",
+         f"{human(data['loc'])} (++{human(data['added'])} --{human(data['deleted'])})",
+         None, None),
     ]
-    right = [
-        f"{data['stars']:,} stars",
-        f"{data['repos']} repos {{{data['contributed']}}}",
-        f"(++{human(data['added'])} --{human(data['deleted'])})",
-    ]
-    return "\n".join(
-        "   " + l + " " * max(1, MAX_COLS - 3 - len(l) - len(r)) + r
-        for l, r in zip(left, right)
-    )
+
+    gap = 2
+    paired = [row for row in rows if row[2] is not None]
+    # +3 = one space, at least one dot, one space
+    left_needed = max(len(f". {lk}:") + len(lv) for lk, lv, _, _ in paired) + 3
+    right_needed = max(len(f". {rk}:") + len(rv) for _, _, rk, rv in paired) + 3
+
+    # split whatever is left over between the two columns, otherwise the
+    # longest left row ends up with exactly one dot while the right column
+    # hoards the space
+    slack = MAX_COLS - gap - left_needed - right_needed
+    left_edge = left_needed + max(0, slack // 2)
+    right_edge = MAX_COLS - left_edge - gap
+
+    def cell(key, value, edge):
+        prefix = f". {key}:"
+        dots = max(1, edge - len(prefix) - len(value) - 2)
+        return f". <b>{key}</b>: " + "." * dots + f" {value}"
+
+    out = []
+    for left_key, left_value, right_key, right_value in rows:
+        if right_key is None:
+            out.append(cell(left_key, left_value, MAX_COLS))
+            continue
+        left = cell(left_key, left_value, left_edge)
+        plain = len(re.sub(r"<[^>]+>", "", left))
+        out.append(left + " " * max(gap, left_edge + gap - plain)
+                   + cell(right_key, right_value, right_edge))
+    return "\n".join(out)
 
 
 def align_panel(text, width=MAX_COLS):
@@ -152,6 +180,16 @@ def align_panel(text, width=MAX_COLS):
         if re.match(r"^\s{4,}\S", line) and "<b>" not in line:
             stripped = line.strip()
             out.append(" " * max(0, width - len(stripped)) + stripped)
+            continue
+
+        # a full-width rule, or a section heading followed by one
+        if re.fullmatch(r"\u2014+", line):
+            out.append("\u2014" * width)
+            continue
+        heading = re.match(r"^(\u2014 [^\u2014]+ )\u2014+$", line)
+        if heading:
+            prefix = heading.group(1)
+            out.append(prefix + "\u2014" * max(1, width - len(prefix)))
             continue
 
         match = re.match(r"^(\. <b>.+?</b>:)[. ]*(.*)$", line)
@@ -177,7 +215,7 @@ def align_panel(text, width=MAX_COLS):
 
 
 def build_card(data):
-    panel = align_panel(PANEL.replace("{stats}", stats_block(data)))
+    panel = align_panel(PANEL).replace("{stats}", stats_block(data))
 
     art = [""] * ART_TOP_PAD + ART.split("\n")
     panel = panel.split("\n")
@@ -188,7 +226,7 @@ def build_card(data):
     for index in range(height):
         left = art[index] if index < len(art) else ""
         right = panel[index] if index < len(panel) else ""
-        body.append(left.ljust(art_width) + GAP.rstrip() + right if right else left)
+        body.append(left.ljust(art_width) + GAP + right if right else left)
 
     return CARD.format(body="\n".join(body))
 
