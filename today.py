@@ -225,6 +225,18 @@ def align_panel(text, width=MAX_COLS):
     return "\n".join(out)
 
 
+def strip_counter_outside_card(tail):
+    """Remove a view-counter tag that ended up after the card.
+
+    The pixel belongs on the card's last line. A copy outside the <pre> adds a
+    line box of its own plus the pre's 16px margin, which is the gap under the
+    card, so anything left there by an older README is dropped on every run.
+    """
+    tail = re.sub(r"<!--[^>]*?view counter.*?-->", "", tail, flags=re.S | re.I)
+    tail = re.sub(r"<img[^>]*(?:goatcounter|komarev)[^>]*>", "", tail)
+    return tail.strip()
+
+
 def build_card(data):
     panel = align_panel(PANEL).replace("{stats}", stats_block(data))
 
@@ -301,14 +313,19 @@ def main():
     if start not in readme or end not in readme:
         raise SystemExit("README.md is missing the neofetch markers")
 
-    head, tail = readme.split(start, 1)[0], readme.split(end, 1)[1]
+    head = readme.split(start, 1)[0]
+    tail = strip_counter_outside_card(readme.split(end, 1)[1])
 
     # build the replacement BEFORE opening the file - a half-rendered card must
     # never be able to truncate the README
     card = build_card(data)
 
+    text = f"{head}{start}\n{card}\n{end}\n"
+    if tail:
+        text = f"{head}{start}\n{card}\n{end}\n\n{tail}\n"
+
     with open("README.md", "w", encoding="utf-8") as handle:
-        handle.write(f"{head}{start}\n{card}\n{end}{tail}")
+        handle.write(text)
 
     # measure what actually goes into the README (after alignment), not the
     # raw PANEL - the hand-written dots are as wide as the file says they are
