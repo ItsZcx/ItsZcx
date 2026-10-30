@@ -131,7 +131,7 @@ def stats_block(data):
         ("Views", views, "Stars", f"{data['stars']:,}"),
         ("Repos", f"{data['repos']} {{Contributed: {data['contributed']}}}",
          "Commits", f"{data['commits']:,}"),
-        ("Lines of code on GitHub",
+        ("Lines of Code",
          f"{human(data['loc'])} (++{human(data['added'])} --{human(data['deleted'])})",
          None, None),
     ]
