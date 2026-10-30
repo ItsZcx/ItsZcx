@@ -24,11 +24,14 @@ import sys
 
 import stats
 
-# Right edge of every panel line. 54 fits the profile page (846px column,
-# 11.9px monospace = 7.165px/char): 46 art + 54 panel = 100 chars = 832px.
-# The repo page renders code at 13.6px, where the same 100 chars is 935px and
-# scrolls inside the table.
-MAX_COLS = 54
+# Right edge of every panel line. The card is one <pre>, so total width is
+# (46 art + 3 gap + MAX_COLS) chars plus 32px padding:
+#   profile  846px column, 11.9px code (7.165px/char) -> 113 chars fit
+#   repo     838px column, 13.6px code (8.188px/char) ->  98 chars fit
+# 58 puts the card at 107 chars: comfortable on the profile, and the repo page
+# scrolls ~60px. Use 49 for a card that fits both.
+MAX_COLS = 58
+GAP = "   "
 
 DEMO = {
     "repos": 26,
@@ -98,15 +101,13 @@ pau@itszcx
 — GitHub Stats ————————————————
 {stats}"""
 
-ART_TOP_PAD = 2        # blank lines above the ASCII, to sit lower in its cell
+ART_TOP_PAD = 2        # blank lines above the ASCII, to sit lower in the card
 
+# One <pre> and nothing else. A fenced/HTML block that starts with <pre> runs
+# until </pre>, so blank lines inside are safe - unlike <table>, where a blank
+# line ends the block and the content after it gets parsed as markdown.
 CARD = """\
-<table>
-<tr>
-<td valign="top"><pre>{art}</pre></td>
-<td valign="top"><pre>{panel}</pre></td>
-</tr>
-</table>"""
+<pre>{body}</pre>"""
 
 
 def human(number):
@@ -177,7 +178,19 @@ def align_panel(text, width=MAX_COLS):
 
 def build_card(data):
     panel = align_panel(PANEL.replace("{stats}", stats_block(data)))
-    return CARD.format(art="\n" * ART_TOP_PAD + ART, panel=panel)
+
+    art = [""] * ART_TOP_PAD + ART.split("\n")
+    panel = panel.split("\n")
+    art_width = max(len(line) for line in art)
+    height = max(len(art), len(panel))
+
+    body = []
+    for index in range(height):
+        left = art[index] if index < len(art) else ""
+        right = panel[index] if index < len(panel) else ""
+        body.append(left.ljust(art_width) + GAP.rstrip() + right if right else left)
+
+    return CARD.format(body="\n".join(body))
 
 
 def main():
