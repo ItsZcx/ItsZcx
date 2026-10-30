@@ -24,7 +24,11 @@ import sys
 
 import stats
 
-MAX_COLS = 42  # right edge of every panel line
+# Right edge of every panel line. 54 fits the profile page (846px column,
+# 11.9px monospace = 7.165px/char): 46 art + 54 panel = 100 chars = 832px.
+# The repo page renders code at 13.6px, where the same 100 chars is 935px and
+# scrolls inside the table.
+MAX_COLS = 54
 
 DEMO = {
     "repos": 26,
@@ -94,6 +98,8 @@ pau@itszcx
 — GitHub Stats ————————————————
 {stats}"""
 
+ART_TOP_PAD = 2        # blank lines above the ASCII, to sit lower in its cell
+
 CARD = """\
 <table>
 <tr>
@@ -113,7 +119,7 @@ def human(number):
 
 
 def stats_block(data):
-    """Three rows, two columns. The left column is padded to 23 characters."""
+    """Three rows, two columns, right edge aligned with the dotted rows."""
     views = f"{data['views']:,}" if data.get("views") is not None else "\u2014"
     left = [
         f"Profile Views {views}",
@@ -125,7 +131,10 @@ def stats_block(data):
         f"{data['repos']} repos {{{data['contributed']}}}",
         f"(++{human(data['added'])} --{human(data['deleted'])})",
     ]
-    return "\n".join(f"   {l:<23}{r}" for l, r in zip(left, right))
+    return "\n".join(
+        "   " + l + " " * max(1, MAX_COLS - 3 - len(l) - len(r)) + r
+        for l, r in zip(left, right)
+    )
 
 
 def align_panel(text, width=MAX_COLS):
@@ -168,7 +177,7 @@ def align_panel(text, width=MAX_COLS):
 
 def build_card(data):
     panel = align_panel(PANEL.replace("{stats}", stats_block(data)))
-    return CARD.format(art=ART, panel=panel)
+    return CARD.format(art="\n" * ART_TOP_PAD + ART, panel=panel)
 
 
 def main():
