@@ -37,8 +37,6 @@ jobs:
           # `repo` scope, or fine-grained with Contents: Read on every repo
           # (each org has to approve it).
           STATS_TOKEN: ${{ secrets.STATS_TOKEN }}
-          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
-          GOATCOUNTER_SITE: ${{ vars.GOATCOUNTER_SITE || 'https://zcx.goatcounter.com' }}
         # schedule/push leave inputs empty, so this is a plain run for them
         # --quiet: Action logs on a public repo are public, so no progress
         # output at all, and repository names are never printed

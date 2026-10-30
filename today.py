@@ -109,6 +109,17 @@ ART_TOP_PAD = 0        # blank lines above the ASCII, to sit lower in the card
 CARD = """\
 <pre>{body}</pre>"""
 
+# 1x1 pixel: loading it is what increments the view counter, and this counter
+# is the one that responds with max-age=0, so GitHub's image cache re-fetches
+# it on every view instead of serving a stale copy for an hour. It sits at the
+# end of the card's last line rather than after </pre>, because a standalone
+# image gets a line box of its own (~21px) and the <pre> keeps its 16px
+# margin, which left ~37px of dead space under the card against ~16px above.
+VIEW_PIXEL = (
+    '<img src="https://komarev.com/ghpvc/?username=ItsZcx&style=pixel"'
+    ' width="1" height="1" alt="">'
+)
+
 
 def human(number):
     """985187 -> 985k, 1967047 -> 1.97M. Keeps the grid inside 42 columns."""
@@ -228,7 +239,20 @@ def build_card(data):
         right = panel[index] if index < len(panel) else ""
         body.append(left.ljust(art_width) + GAP + right if right else left)
 
+    # the tracker rides along on the last line so it costs no vertical space
+    body[-1] += VIEW_PIXEL
+
     return CARD.format(body="\n".join(body))
+
+
+def readme_views():
+    """The number currently in README.md, used when the counter is unreadable."""
+    try:
+        with open("README.md", encoding="utf-8") as handle:
+            match = re.search(r"Views</b>:[.\s]*([\d,]+)", handle.read())
+    except OSError:
+        return None
+    return int(match.group(1).replace(",", "")) if match else None
 
 
 def main():
@@ -238,6 +262,12 @@ def main():
     dry_run = "--dry-run" in sys.argv or (demo and "--write" not in sys.argv)
 
     data = DEMO if demo else stats.fetch()
+
+    # exports can only be started once an hour, so a second run in the same
+    # hour cannot read the count - keep the one already on the card instead of
+    # printing a dash over it
+    if not demo and data.get("views") is None:
+        data["views"] = readme_views()
     print(
         json.dumps(
             {

@@ -3,9 +3,10 @@
 Two data sources:
   * GitHub - repos, stars, followers (cheap GraphQL) and, per repository,
     your commits plus their added/deleted lines (REST, author-filtered).
-  * GoatCounter - profile views. Read through the JSON API, which is the
-    whole point: reading never increments the counter the way the badge
-    request does. Visitors hit /count, we only ever read.
+  * Komarev - profile views. The only counter that increments on every real
+    visit: it sends `max-age=0`, which is the one thing GitHub's image cache
+    actually honours. There is no read-only endpoint, so reading the number
+    costs one view - the trade is deliberate and adds exactly one per run.
 
 Nothing here is rate-limit naive: requests are spaced, 403/429 back off
 until the reset window, 5xx retries, and per-repo results are cached by
@@ -41,8 +42,9 @@ MIRRORS = {
     "fas-ai/fas-ai": "EpitechPromo2027/G-EIP-600-BAR-6-1-eip-oriol.linan",
 }
 
-GOATCOUNTER_SITE = os.environ.get("GOATCOUNTER_SITE", "https://zcx.goatcounter.com")
-GOATCOUNTER_PATH = os.environ.get("GOATCOUNTER_PATH", "/profile")
+# the view counter; the badge is also the thing that increments it
+COUNTER = "https://komarev.com/ghpvc/?username={user}&style=flat"
+COUNTER_PIXEL = "https://komarev.com/ghpvc/?username={user}&style=pixel"
 
 
 def _env(name):
@@ -50,8 +52,6 @@ def _env(name):
 
 
 GH_TOKEN = _env("STATS_TOKEN") or _env("ACCESS_TOKEN") or _env("GITHUB_TOKEN")
-GC_TOKEN = _env("GOATCOUNTER_TOKEN")
-GOATCOUNTER_SITE = GOATCOUNTER_SITE.rstrip("/")
 
 REQUESTS = 0
 
@@ -128,13 +128,6 @@ def _request(url, data=None, token=None, allow=()):
                 continue
 
             if error.code in (401, 403):
-                if "goatcounter" in url:
-                    raise SystemExit(
-                        f"GoatCounter rejected the token (HTTP {error.code}).\n"
-                        f"  - is GOATCOUNTER_TOKEN exported in this shell?\n"
-                        f"  - no quotes, no trailing newline\n"
-                        f"  - create/rotate it at {GOATCOUNTER_SITE}/user/api"
-                    )
                 raise SystemExit(
                     f"GitHub rejected STATS_TOKEN (HTTP {error.code}).\n"
                     f"  - scope must include `repo` for private/org repos\n"
@@ -360,30 +353,29 @@ def scan_repo(full_name):
 
 
 def views():
-    """Read the GoatCounter total. Reading never increments the counter.
+    """Read the view counter, at the cost of one view.
 
-    /stats/hits returns one stats entry per day in the window, so asking for
-    everything since 2000 returns ~10k days of hourly buckets (4.5 MB). The
-    counter cannot have hits before the account existed, so the account's
-    created_at is both correct and tiny.
+    The badge increments on every request and offers no read-only endpoint, so
+    counting the number means being counted. That is the trade for a counter
+    that otherwise moves on every real visit: one extra per run.
+
+    Returns None when the number cannot be read, so the caller can keep the
+    value already on the card.
     """
-    if not GC_TOKEN:
-        raise SystemExit("GOATCOUNTER_TOKEN is not set")
-
-    me, _ = _request(f"{GOATCOUNTER_SITE}/api/v0/me", token=GC_TOKEN)
-    since = (me.get("user") or {}).get("created_at") or "2000-01-01T00:00:00Z"
-    since = since.split("T")[0] + "T00:00:00Z"
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-    body, _ = _request(
-        f"{GOATCOUNTER_SITE}/api/v0/stats/hits?start={since}&end={now}&limit=100",
-        token=GC_TOKEN,
+    request = urllib.request.Request(
+        COUNTER.format(user=USER),
+        headers={"User-Agent": f"{USER}-readme-stats"},
     )
-    for hit in body.get("hits", []):
-        path = hit.get("path", "")  # field is `path`, not `name`
-        if path == GOATCOUNTER_PATH or path == GOATCOUNTER_PATH.lstrip("/"):
-            return hit.get("count", 0)
-    return body.get("total") or 0
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            body = response.read().decode("utf-8", "replace")
+    except (urllib.error.HTTPError, OSError) as error:
+        print(f"    counter unreadable: {error}", file=sys.stderr)
+        return None
+
+    # the number is drawn twice - a shadow and the text on top of it
+    found = re.findall(r">([\d,]+)</text>", body)
+    return int(found[0].replace(",", "")) if found else None
 
 
 # ------------------------------------------------------------------- cache
