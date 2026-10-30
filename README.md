@@ -26,8 +26,8 @@
          :. .. ::::::...      ..*-*%+:.-.
          ..  ..  .  .         -+.....=**=*+=++   — GitHub Stats ————————————————————————————————————————————————
   .+-**#+:-                 =-.      .-=---::.   . <b>Views</b>: ...................... 2,813  . <b>Stars</b>: ............. 7
-#+- :=-: := . .          --=                     . <b>Repos</b>: ...... 26 {Contributed: 136}  . <b>Commits</b>: ....... 2,540
-....-   :%.. ..       =-=                        . <b>Lines of code on GitHub</b>: ............... 675k (++986k --311k)</pre>
+#+- :=-: := . .          --=                     . <b>Repos</b>: ...... 26 {Contributed: 136}  . <b>Commits</b>: ....... 2,541
+....-   :%.. ..       =-=                        . <b>Lines of Code</b>: ......................... 675k (++986k --311k)</pre>
 <!-- neofetch:end -->
 
 <!-- Profile view counter. The image is what increments it; the Action only
